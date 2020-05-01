@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var adRouterApi = require('./api/anuncios');
 var tagRouterApi = require('./api/tags');
+var authentication = require('./api/authenticate');
 
 var app = express();
 
@@ -24,6 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/anuncios', adRouterApi);
 app.use('/tags', tagRouterApi);
+//Auth
+app.use('/auth', authentication);
 
 
 app.use(function (req, res, next) {

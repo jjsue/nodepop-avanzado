@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
-    username: {type: String, index: true, unique: true},
+    userName: {type: String, unique: true},
     password: String,
 });
 
@@ -14,6 +14,6 @@ userSchema.statics.hashPass = function (passwd) {
     return bcrypt.hash(passwd, saltRounds);
 }
 
-const user = mongoose.model('user', userSchema);
+const User = mongoose.model('user', userSchema);
 
-module.exports = user;
+module.exports = User;

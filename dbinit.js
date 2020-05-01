@@ -42,7 +42,7 @@ async function initTagDb() {
 async function initUsersDb() {
   await usersDb.deleteMany();
   await usersDb.insertMany([
-    {username: 'user@example.com', password: await usersDb.hashPass('1234')},
-    {username: 'user0@example.com', password: await usersDb.hashPass('1234567890')},
+    {userName: 'user@example.com', password: await usersDb.hashPass('1234')},
+    {userName: 'user123@example.com', password: await usersDb.hashPass('1234567890')},
   ]);
 }

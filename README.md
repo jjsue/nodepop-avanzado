@@ -38,6 +38,10 @@ node dbinit.js
 
 ## Llamadas a la API:
 
+### Llamada POST AUTH
+
+Se llama con post a /auth para obtener el token de autenticación.
+
 ### Llamada GET, obtener datos.
 
 Para obtener datos de la base de datos de nodepop es tan sencillo como usar query params en el endpoint /anuncios. Ejemplo:
