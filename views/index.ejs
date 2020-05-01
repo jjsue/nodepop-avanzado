@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Sell</th>
+      <th>Price</th>
+      <th>Image URL</th>
+      <th>Tags</th>
+    </tr>
+    <% for(var i=0; i < data.length; i++) { %>
+    <tr>
+      <td><%= data[i].name %></td>
+      <td><%= data[i].sell %></td>
+      <td><%= data[i].price %></td>
+      <td><%= data[i].image %></td>
+      <td><%= data[i].tags %></td>
+    </tr>
+    <% } %>
+  </table>
+</body>
+
+</html>
