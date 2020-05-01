@@ -3,11 +3,13 @@
 const conn = require('./lib/connectMongoose');
 const anuncio = require('./models/anuncio.js');
 const tagDb = require('./models/tag.js');
+const usersDb = require('./models/user.js');
 
 conn.once('open', async () => {
   try {
     await initAdDb();
     await initTagDb();
+    await initUsersDb();
     conn.close();
 
   } catch (err) {
@@ -34,5 +36,13 @@ async function initTagDb() {
     { tag: 'work' },
     { tag: 'motor' },
     { tag: 'mobile' },
+  ]);
+}
+
+async function initUsersDb() {
+  await usersDb.deleteMany();
+  await usersDb.insertMany([
+    {username: 'user@example.com', password: await usersDb.hashPass('1234')},
+    {username: 'user0@example.com', password: await usersDb.hashPass('1234567890')},
   ]);
 }
