@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const User = require('./../models/user');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
 router.post('/', async (req, res, next) => {
     try {
@@ -11,7 +12,11 @@ router.post('/', async (req, res, next) => {
         if (userFound === null || !await bcrypt.compare(password, userFound.password)) {
             return res.status(401).json({ errors: 'Username or password wrong' });
         } else {
-            res.send("Usuario encontrado");
+            const tokenCreated = jwt.sign({_id: userFound._id}, process.env.JWT_PASS,{
+                expiresIn: 60,
+            });
+            //res.send("Usuario encontrado");
+            res.json({token: tokenCreated});
         }
     }
     catch (err) {
