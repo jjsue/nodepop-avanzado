@@ -12,11 +12,11 @@ router.post('/', async (req, res, next) => {
         if (userFound === null || !await bcrypt.compare(password, userFound.password)) {
             return res.status(401).json({ errors: 'Username or password wrong' });
         } else {
-            const tokenCreated = jwt.sign({_id: userFound._id}, process.env.JWT_PASS,{
-                expiresIn: 60,
+            const tokenCreated = jwt.sign({ _id: userFound._id }, process.env.JWT_PASS, {
+                expiresIn: '2d',
             });
             //res.send("Usuario encontrado");
-            res.json({token: tokenCreated});
+            res.json({ token: tokenCreated });
         }
     }
     catch (err) {

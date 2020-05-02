@@ -22,11 +22,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/anuncios', adRouterApi);
-app.use('/tags', tagRouterApi);
-//Auth
 app.use('/auth', authentication);
+// Cargamos el validador de tokens.
+const tokenValidator = require('./lib/tokenValidator');
+
+app.use('/', indexRouter);
+app.use('/anuncios', tokenValidator(), adRouterApi);
+app.use('/tags', tagRouterApi);
 
 
 app.use(function (req, res, next) {
