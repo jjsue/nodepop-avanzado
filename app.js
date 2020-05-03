@@ -13,6 +13,11 @@ var app = express();
 
 require('./lib/connectMongoose');
 
+//Cargamos internacionalización.
+
+const i18n = require('./lib/i18nconfig')();
+app.use(i18n.init);
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
