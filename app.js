@@ -13,10 +13,6 @@ var app = express();
 
 require('./lib/connectMongoose');
 
-//Cargamos internacionalización.
-
-const i18n = require('./lib/i18nconfig')();
-app.use(i18n.init);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -26,6 +22,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+//Cargamos internacionalización.
+const i18n = require('./lib/i18nconfig')();
+app.use(i18n.init);
+
+//Coloco el controlador del idioma lo primero.
+app.use('/change-language', require('./lib/change-language'));
 
 app.use('/auth', authentication);
 // Cargamos el validador de tokens.

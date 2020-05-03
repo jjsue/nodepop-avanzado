@@ -26,6 +26,10 @@
     </tr>
     <% } %>
   </table>
+  <h4><%= __('Language:') %></h4>
+  <% getLocales().forEach( locale => { %>
+  <a href="/change-language/<%= locale %>"><%= locale %></a>&nbsp;
+  <% }) %>
 </body>
 
 </html>
