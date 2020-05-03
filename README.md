@@ -42,6 +42,28 @@ node dbinit.js
 
 Se llama con post a /auth para obtener el token de autenticación.
 
+Este post espera en el body dos parametros. Un user, el cual debe ser un correo electrónico y una password.
+
+Si el username o la password son incorrecta la respuesta del servidor será un JSON tal que:
+
+```
+{
+    "errors": "Username or password wrong"
+}
+```
+
+Si tenemos éxito en la autenticación se nos devolverá un JSON como el siguiente:
+
+```
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWFjMTZhODRjNTQ0NTMzZWM3Yjg0ZjUiLCJpYXQiOjE1ODg1MDMwNTUsImV4cCI6MTU4ODY3NTg1NX0.xqeqpxJ7ocwT2ahWxpYv43C7BvOwRaT7DtVbNfnlHPs"
+}
+```
+
+El frontend será el encargado de guardar este token e incluirlo en las peticiones de datos dentro de los headers bajo el nombre de **"auth"** sin comillas.
+
+Si el token expira, es inválido o cualquier otra circunstancia que haga que el token sea rechazado se recibirá como respuesta un JSON con mas información del error.
+
 ### Llamada GET, obtener datos.
 
 Para obtener datos de la base de datos de nodepop es tan sencillo como usar query params en el endpoint /anuncios. Ejemplo:
