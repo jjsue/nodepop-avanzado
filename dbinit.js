@@ -21,11 +21,11 @@ conn.once('open', async () => {
 async function initAdDb() {
   await anuncio.deleteMany();
   await anuncio.insertMany([
-    { name: 'Botas de futbol', sell: true, price: 10, image: 'https://github.com/jjsue/nodepop', tags: ['lifestyle', 'work'] },
-    { name: 'Patinete electrico', sell: false, price: 100, image: 'https://github.com/jjsue/nodepop', tags: ['motor'] },
-    { name: 'Telefono fijo', sell: true, price: 104, image: 'https://github.com/jjsue/nodepop', tags: ['work'] },
-    { name: 'Rueda de coche', sell: true, price: 299, image: 'https://github.com/jjsue/nodepop', tags: ['lifestyle'] },
-    { name: 'Telefono', sell: true, price: 299, image: 'https://github.com/jjsue/nodepop', tags: ['lifestyle'] },
+    { name: 'Botas de futbol', sell: true, price: 10, image: '/images/test-image-05-tn.jpg', tags: ['lifestyle', 'work'] },
+    { name: 'Patinete electrico', sell: false, price: 100, image: '/images/test-image-04-tn.jpg', tags: ['motor'] },
+    { name: 'Telefono fijo', sell: true, price: 104, image: '/images/test-image-03-tn.jpg', tags: ['work'] },
+    { name: 'Rueda de coche', sell: true, price: 299, image: '/images/test-image-02-tn.jpg', tags: ['lifestyle'] },
+    { name: 'Telefono', sell: true, price: 299, image: '/images/test-image-01-tn.jpg', tags: ['lifestyle'] },
   ]);
 }
 
