@@ -4,6 +4,7 @@ const Ad = require('./../models/anuncio');
 const Tag = require('./../models/tag');
 const { check, validationResult } = require('express-validator');
 const tagValidator = require('./../lib/tagValidator');
+const imageHandler = require('./../lib/imageHandler');
 router.get('/', async (req, res, next) => {
     try {
         const filtro = {};
@@ -50,7 +51,7 @@ router.post('/',
         check('name').isString(),
         check('sell').isBoolean(),
         check('price').isNumeric(),
-        check('image').isURL(),
+        //check('image').isURL(),
         check('tags').isArray(),
     ],
     async (req, res, next) => {
@@ -58,6 +59,11 @@ router.post('/',
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(422).json({ errors: errors.array() });
+            }
+            //Tras comprobar los campos de texto vamos a hacer la validacion de la imagen. Solo se va a permitir subir png o jpg.
+            const  imageStatus = imageHandler(req.files.image);
+            if(!imageStatus){
+                return res.status(422).json({errors: 'Error, image not recognized as PNG or JPG'});
             }
             const filtro = {};
             const sort = 'tag';
@@ -72,6 +78,7 @@ router.post('/',
             if (!tagValidator(req.body.tags, databaseTagList)) {
                 return res.status(422).json({ errors: 'Error, tags are not corresponding with the expected ones' });
             }
+            req.body.image = imageStatus;
             const postData = req.body;
             const postDataToSave = new Ad(postData);
             const postDataSaved = await postDataToSave.save()
