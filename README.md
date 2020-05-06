@@ -26,11 +26,11 @@ Para usar el debugger.
 ```
 npm run devbug
 ```
-## ¿Como arrancar la base de datos?
+## ¿Como inicializar la base de datos?
 
-Simplemente hay que ejecutar el archivo dbinit.js.
+Hay un script npm dedicado a ello.
 ```
-node dbinit.js
+npm run database
 ```
 
 ---
