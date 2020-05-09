@@ -9,7 +9,6 @@ const userSchema = mongoose.Schema({
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-//Encriptacion.
 userSchema.statics.hashPass = function (passwd) {
     return bcrypt.hash(passwd, saltRounds);
 }

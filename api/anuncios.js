@@ -51,7 +51,6 @@ router.post('/',
         check('name').isString(),
         check('sell').isBoolean(),
         check('price').isNumeric(),
-        //check('image').isURL(),
         check('tags').isArray(),
     ],
     async (req, res, next) => {
@@ -60,7 +59,6 @@ router.post('/',
             if (!errors.isEmpty()) {
                 return res.status(422).json({ errors: errors.array() });
             }
-            //Tras comprobar los campos de texto vamos a hacer la validacion de la imagen. Solo se va a permitir subir png o jpg.
             const  imageStatus = imageHandler(req.files.image);
             if(!imageStatus){
                 return res.status(422).json({errors: 'Error, image not recognized as PNG or JPG'});

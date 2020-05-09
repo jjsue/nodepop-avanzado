@@ -35,6 +35,15 @@ npm run database
 
 ---
 
+## Microservicios
+
+El API cuenta con un microservicio que crea las imagenes mas pequeñas de las que las sube el usuario.
+El requester se activa automaticamente al iniciar la aplicación, sin embargo, el consumer hay que activarlo manualmente, tenemos que ir a la ruta /lib/microservices y ejecutar el archivo "imageConsumer.js". Podemos abrir tantas instancias del mismo como queramos.
+Una vez subida la imagen en 20 segundos aproximadamente es cuando se genera la thumbnail, que se generará con el mismo nombre de archivo asignado por el servidor pero como prefijo se añadirá "tn-".
+
+Este es el nombre que se guardará en la base de datos, por tanto si queremos recuperar la imagen a tamaño natural deberemos quitar ese prefijo "tn-".
+
+Este microservicio está integrado con la librería Cote.
 
 ## Llamadas a la API:
 
@@ -58,6 +67,13 @@ Si tenemos éxito en la autenticación se nos devolverá un JSON como el siguien
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWFjMTZhODRjNTQ0NTMzZWM3Yjg0ZjUiLCJpYXQiOjE1ODg1MDMwNTUsImV4cCI6MTU4ODY3NTg1NX0.xqeqpxJ7ocwT2ahWxpYv43C7BvOwRaT7DtVbNfnlHPs"
 }
+```
+
+Ejemplo del body en postman:
+
+```
+user:user@example.com
+password:1234
 ```
 
 El frontend será el encargado de guardar este token e incluirlo en las peticiones de datos dentro de los headers bajo el nombre de **"auth"** sin comillas.
@@ -95,6 +111,9 @@ Hay dos filtros adicionales de paginación:
 * skip: para saltarse x numero de resultados.
 * limit: limitar resultados. Por defecto es 100
 
+Este endpoint está securizado tal y como se explica mas arriba, en el POST auth, es decir, a la petición GET le tenemos que introducir el token JWT en los headers del mensaje con el nombre de "auth".
+
+
 #### Pagina de prueba.
 
 Si realizamos una petición HTTP con cualquier navegador a la raiz de la aplicación obtendremos una tabla con los elementos contenidos en la base de datos.
@@ -107,6 +126,14 @@ Además, aquí podemos hacer uso de query params para filtrar, por ejemplo:
 
 Eso nos devuelve la lista de anuncios en cuyo nombre esté contenida la palabra telefono y en la que al menos uno de sus tags sea work.
 
+Esta llamada de prueba funciona con una llamada interna a la aplicación, si no tenemos el token auth puesto nos devolverá un error 500 tal que así.
+
+```
+Request failed with status code 500
+```
+
+Es necesario pedir al servidor un token de autenticación al servidor y colocarlo en el fichero .env. El campo a rellenar es JWT_VIEW_TOKEN. Esto es así porque la vista no está pensada para usuarios finales, es un método sencillo de comprobar el funcionamiento de la aplicación y no queremos dejar agujeros de seguridad.
+
 ### Llamada POST, escribir datos.
 
 Tendremos que enviar la información en formato JSON. Tenemos que escribir todos los campos ya que todos son obligatorios:
@@ -115,6 +142,8 @@ Tendremos que enviar la información en formato JSON. Tenemos que escribir todos
 * price: Precio del articulo.
 * image: url de la imagen del anuncio.
 * tags: [array, de, strings]
+
+Por supuesto está securizado exactamente igual que el GET.
 
 ### Saber la lista de tags disponibles para nuestro anuncio:
 
@@ -146,7 +175,8 @@ Evidentemente de no usar los tags exactamente como nos devuelve esta respuesta r
 
 #### Respuesta correcta:
 Recibiremos de vuelta un status 201 con un JSON de lo que se ha escrito exactamente en la base de datos:
-    ```
+```
+
     {
         "result": {
             "tags": [
@@ -162,7 +192,7 @@ Recibiremos de vuelta un status 201 con un JSON de lo que se ha escrito exactame
             "__v": 0
         }
     }
-    ```
+```
 #### Errores:
 Si no nos ceñimos a lo esperado por nodepop obtendremos los siguientes errores:
 * Tags:

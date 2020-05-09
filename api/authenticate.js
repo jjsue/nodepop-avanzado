@@ -15,7 +15,6 @@ router.post('/', async (req, res, next) => {
             const tokenCreated = jwt.sign({ _id: userFound._id }, process.env.JWT_PASS, {
                 expiresIn: '2d',
             });
-            //res.send("Usuario encontrado");
             res.json({ token: tokenCreated });
         }
     }
