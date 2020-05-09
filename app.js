@@ -32,16 +32,13 @@ app.use(fileUpload({
   preserveExtension: true,
 }));
 
-
-//Cargamos internacionalización.
 const i18n = require('./lib/i18nconfig')();
 app.use(i18n.init);
 
-//Coloco el controlador del idioma lo primero.
 app.use('/change-language', require('./lib/change-language'));
 
 app.use('/auth', authentication);
-// Cargamos el validador de tokens.
+
 const tokenValidator = require('./lib/tokenValidator');
 
 app.use('/', indexRouter);
