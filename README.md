@@ -1,6 +1,22 @@
 # Nodepop
 Proyecto full stack web development Keepcoding.
 
+## Practica devOps
+
+Para acceder al frontend utilizamos la ip del servidor:
+
+```
+15.188.63.21
+```
+
+Para acceder al backend y sus funciones utilizamos el nombre de dominio:
+
+```
+ec2-15-188-63-21.eu-west-3.compute.amazonaws.com
+```
+
+Si lo usamos de esta forma no hay que especificar el puerto porque ya se encarga nginx de ello.
+
 ## Scripts NPM
 
 Están preparados para funcionar en entornos multiplataforma, se puede trabajar indiferentemente en Windows, Mac y Linux.
